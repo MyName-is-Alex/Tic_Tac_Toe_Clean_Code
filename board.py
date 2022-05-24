@@ -9,7 +9,7 @@ def get_empty_board(board_lenght):
 
 def display_board(board):
 
-    each_row = chr(65)
+    row_index = chr(65)
     board_length = len(board)
     counter = 1
 
@@ -19,14 +19,14 @@ def display_board(board):
     print("")
 
     for row_index in range(board_length):
-
         board_row = " | ".join(board[row_index])
+        print(f"    {row_index}   {board_row}\n", end="   ")
+        if row_index != board_length - 1:
+            print("    ---" + "+---" * (board_length - 1))
 
-        print(f"    {each_row}   {board_row}\n", end="   ")
-        print("    ---+---+---")
-
-        each_row = chr(65 + counter)
+        row_index = chr(65 + counter)
         counter += 1
+    print(" ")
 
 
 def is_board_full(board):
@@ -99,10 +99,10 @@ def check_diags(players, board, min_streak):
             return player
 
 
-def get_winning_player(board, min_streak, players):
+def get_winning_player(board):
 
-    # min_streak = 3
-    # players = ["X", "O"]
+    min_streak = 3
+    players = ["X", "O"]
 
     # Check Rows
     winner = check_rows(players, board, min_streak)
@@ -121,7 +121,7 @@ def get_winning_player(board, min_streak, players):
 
 
 if __name__ == "__main__":
-    empty_board = get_empty_board(3)
+    empty_board = get_empty_board(4)
     print(empty_board)
     current_player = 'X'    # added
     winner = None           # added
@@ -129,7 +129,7 @@ if __name__ == "__main__":
     board = [
       ['X', "O", "."],
       ['X', "O", "."],
-      ['0', "X", "."],
+      ['0', "X", "."]
     ]
 
     print("""
