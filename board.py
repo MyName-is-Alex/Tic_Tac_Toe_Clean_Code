@@ -76,8 +76,7 @@ def check_diags(players, board, min_streak):
     diags_board = board_size - min_streak
     reversed_board = []
     for row in board:
-        row.reverse()
-        reversed_board.append(row)
+        reversed_board.append(row[::-1])
 
     for row in range(diags_board + 1):
         for column in range(diags_board + 1):
@@ -89,14 +88,14 @@ def check_diags(players, board, min_streak):
             diag = [reversed_board[row + i][column + i] for i in range(min_streak)]
             diags_list.append(diag)
 
-    for player in players:
-        counter = 0
-        for diag in diags_list:
+    for diag in diags_list:
+        for player in players:
+            counter = 0
             for element in diag:
                 if element == player:
                     counter += 1
-        if counter >= min_streak:
-            return player
+                if counter >= min_streak:
+                    return player
 
 
 def get_winning_player(board):
@@ -126,7 +125,7 @@ if __name__ == "__main__":
     current_player = 'X'    # added
     winner = None           # added
 
-    board = [
+    board_ = [
       ['X', "O", "."],
       ['X', "O", "."],
       ['0', "X", "."]
@@ -143,7 +142,7 @@ if __name__ == "__main__":
        ---+---+---
     """)
 
-    display_board(board)
+    display_board(board_)
 
     board_1 = [
       ["X", "O", "."],
@@ -170,10 +169,10 @@ if __name__ == "__main__":
     print(is_board_full(board_3))
 
     board_4 = [
-      ["O", ".", "O", "X"],
-      ["X", ".", "X", "O"],
-      ["O", ".", "O", "X"],
-      ["X", "O", "X", "O"]
+      [".", ".", "O", "X"],
+      [".", ".", ".", "."],
+      [".", "X", "O", "."],
+      ["X", ".", ".", "O"]
     ]
     print("Should return X")
     print(get_winning_player(board_4))
